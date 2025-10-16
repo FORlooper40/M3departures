@@ -1,10 +1,22 @@
-\
 // Minimal, dependency-free logic. Assumes your device's time is set to Ireland
 // OR we compute time-of-day using Europe/Dublin via Intl.DateTimeFormat.
 const TZ = "Europe/Dublin";
 
+// showError() displays a friendly message on-screen if timetable.json can't load
+function showError(msg) {
+  const results = document.getElementById("results");
+  const list = document.getElementById("list");
+  const title = document.getElementById("title");
+  results.classList.remove("hidden");
+  title.textContent = "Error";
+  list.innerHTML = `<li class="item"><div class="lead">${msg}</div>
+                    <div class="meta">Check that <code>timetable.json</code> is in the repo root and named exactly.</div></li>`;
+}
+
+// Safer loader (forces no-cache, clearer error message)
 async function loadTimetable() {
-  const res = await fetch("timetable.json");
+  const res = await fetch("timetable.json", { cache: "no-store" });
+  if (!res.ok) throw new Error(`timetable.json ${res.status}`);
   return res.json();
 }
 
@@ -67,7 +79,8 @@ function updateNowStamp() {
     timeZone: TZ, weekday:"short", day:"2-digit", month:"short", year:"numeric",
     hour:"2-digit", minute:"2-digit", hourCycle:"h23"
   });
-  document.getElementById("now").textContent = "Current time: " + dateFmt.format(new Date()) + " (" + TZ + ")";
+  document.getElementById("now").textContent =
+    "Current time: " + dateFmt.format(new Date()) + " (" + TZ + ")";
 }
 
 function renderFromM3(t) {
@@ -102,24 +115,32 @@ function renderToM3(t) {
   });
 }
 
-(async function init(){
-  const t = await loadTimetable();
-  const results = document.getElementById("results");
-  const back = document.getElementById("back");
-  const btnFrom = document.getElementById("btn-from-m3");
-  const btnTo = document.getElementById("btn-to-m3");
+// ---------- Safe async init ----------
+(function attachSafeInit(){
+  (async function init(){
+    try {
+      const t = await loadTimetable();
 
-  function showResults(renderFn) {
-    renderFn(t);
-    updateNowStamp();
-    results.classList.remove("hidden");
-    window.scrollTo({ top: results.offsetTop - 8, behavior: "smooth" });
-  }
+      const results = document.getElementById("results");
+      const back = document.getElementById("back");
+      const btnFrom = document.getElementById("btn-from-m3");
+      const btnTo = document.getElementById("btn-to-m3");
 
-  btnFrom.addEventListener("click", ()=> showResults(renderFromM3));
-  btnTo.addEventListener("click", ()=> showResults(renderToM3));
-  back.addEventListener("click", ()=> results.classList.add("hidden"));
+      function showResults(renderFn) {
+        renderFn(t);
+        updateNowStamp();
+        results.classList.remove("hidden");
+        window.scrollTo({ top: results.offsetTop - 8, behavior: "smooth" });
+      }
 
-  // Optional: auto-refresh timestamp every 30s
-  setInterval(updateNowStamp, 30000);
+      btnFrom.addEventListener("click", ()=> showResults(renderFromM3));
+      btnTo.addEventListener("click", ()=> showResults(renderToM3));
+      back.addEventListener("click", ()=> results.classList.add("hidden"));
+      setInterval(updateNowStamp, 30000);
+
+    } catch (e) {
+      console.error(e);
+      showError("Could not load timetable.json (" + e.message + ").");
+    }
+  })();
 })();
