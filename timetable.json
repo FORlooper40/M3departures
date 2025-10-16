@@ -1,0 +1,82 @@
+{
+  "valid_from": "2025-08-10",
+  "timezone": "Europe/Dublin",
+  "weekday": {
+    "from_m3_departures": [
+      "07:40",
+      "08:16",
+      "10:40",
+      "11:40",
+      "12:40",
+      "13:40",
+      "18:10",
+      "18:40",
+      "19:12",
+      "19:35",
+      "20:25",
+      "21:10"
+    ],
+    "to_m3_from_dublin": [
+      {
+        "origin": "Dublin Connolly",
+        "depart": "08:14",
+        "via": "Clonsilla",
+        "arrive_m3": "09:03"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "08:21",
+        "via": "Clonsilla",
+        "arrive_m3": "09:31"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "10:54",
+        "via": "Clonsilla",
+        "arrive_m3": "11:31"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "12:54",
+        "via": "Clonsilla",
+        "arrive_m3": "13:30"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "15:14",
+        "via": "Clonsilla",
+        "arrive_m3": "15:30"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "17:25",
+        "via": "Clonsilla",
+        "arrive_m3": "18:00"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "18:24",
+        "via": "Clonsilla",
+        "arrive_m3": "19:00"
+      },
+      {
+        "origin": "Docklands",
+        "depart": "08:19",
+        "via": "Clonsilla",
+        "arrive_m3": "09:03"
+      },
+      {
+        "origin": "Docklands",
+        "depart": "08:55",
+        "via": "Clonsilla",
+        "arrive_m3": "09:31"
+      },
+      {
+        "origin": "Dublin Connolly",
+        "depart": "21:46",
+        "via": "Clonsilla",
+        "arrive_m3": "22:00"
+      }
+    ]
+  }
+}

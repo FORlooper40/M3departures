@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>M3 Departures (JS)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>M3 Departures</h1>
+      <p class="sub">PDF timetable (valid from 10 Aug 2025) • Timezone: Europe/Dublin</p>
+    </header>
+
+    <section class="cards">
+      <button id="btn-from-m3" class="card">
+        <h2>From M3 Parkway</h2>
+        <p>Show next three trains leaving M3 Parkway.</p>
+      </button>
+
+      <button id="btn-to-m3" class="card">
+        <h2>Connolly/Docklands → M3 (via Clonsilla)</h2>
+        <p>Show next three services that end at M3 Parkway.</p>
+      </button>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div class="toolbar">
+        <button id="back" class="back">&larr; Back</button>
+        <div id="now" class="now"></div>
+      </div>
+      <h3 id="title"></h3>
+      <ul id="list" class="list"></ul>
+      <p class="note">Connections are not guaranteed. Gates may close 2 minutes before departure.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
